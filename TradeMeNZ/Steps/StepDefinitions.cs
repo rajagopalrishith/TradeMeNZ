@@ -1,34 +1,44 @@
-﻿using System;
+﻿using TradeMeNZ.Pages;
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.DevTools;
+using OpenQA.Selenium.Support.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
-using TradeMeNZ.Pages;
+using TechTalk.SpecFlow.Assist;
 
-namespace TradeMeNZ.Steps
+namespace TradeMeNZ.steps
 {
     [Binding]
-    class StepDefinitions
+    public class StepDefs
     {
-        
-        private HomePage _HomePage { get; }
+        private HomePage HomePage { get; }
 
-        public StepDefinitions(HomePage HomePage)
+        public StepDefs(HomePage HomePage)
         {
-            _HomePage = HomePage;
+            this.HomePage = HomePage;
 
         }
+
+
         [Given("when i have navigated to trademe Home Page")]
         public void GivenWhenIHaveNavigatedToTrademeHomePage()
         {
-            _HomePage.NavigatetoTradeMe_Home();
+            HomePage.NavigatetoTradeMe_Home();
         }
 
         [Then("I verify if home page icon is loaded")]
         public void ThenIVerifyIfHomePageIconIsLoaded()
         {
-            throw new PendingStepException();
+            Assert.IsTrue(HomePage.TrademeLogoVisible(), "Logo Page is not displayed");
+           
         }
 
     }

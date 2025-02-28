@@ -1,4 +1,4 @@
-﻿
+﻿using BoDi;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using System;
@@ -6,43 +6,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechTalk.SpecFlow;
 using System.Security.Policy;
 using OpenQA.Selenium.Support.UI;
-using TechTalk.SpecFlow;
 
-namespace TradeMeNZ.Framework
-{ 
- [Binding]
-public class WebDriverSupport : IDisposable
+namespace TradeMeNZ
 {
-    private IWait<IWebDriver> _defaultWait = null;
-    private IWebDriver Driver = null;
-
-    [BeforeScenario]
-    public void InitializeWebDriver()
+    [Binding]
+    public class WebDriverSupport : IDisposable
     {
+        private readonly IObjectContainer objectContainer;
+        private IWait<IWebDriver> _defaultWait = null;
+        private IWebDriver Driver = null;
 
+        public WebDriverSupport(IObjectContainer objectContainer)
         {
-            Driver = new ChromeDriver();
-
+            this.objectContainer = objectContainer;
         }
-        ;
-        int timeout = 5000;
-        int pollInterval = 10000;
-        _defaultWait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(timeout))
-        {
-            PollingInterval = TimeSpan.FromMilliseconds(pollInterval)
-        };
-    }
 
-    [AfterScenario]
-    public void Dispose()
-    {
-        if (Driver != null)
+        [BeforeScenario]
+        public void InitializeWebDriver()
         {
-            Driver.Quit();
-            Driver.Dispose();
+            this.Driver = new ChromeDriver();
+            {
+            }
+            ;
+            objectContainer.RegisterInstanceAs(Driver, typeof(IWebDriver));
+            int timeout = 5000;
+            int pollInterval = 100;
+            _defaultWait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(timeout))
+            {
+                PollingInterval = TimeSpan.FromMilliseconds(pollInterval)
+            };
+            objectContainer.RegisterInstanceAs(_defaultWait, typeof(IWait<IWebDriver>));
+        }
+
+        [AfterScenario]
+        public void Dispose()
+        {
+            if (Driver != null)
+            {
+                Driver.Quit();
+                Driver.Dispose();
+            }
         }
     }
-}
 }

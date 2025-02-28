@@ -8,9 +8,4 @@ Scenario: Validate verifying home page of trademe Application
 	Then I verify if home page icon is loaded
 
 
-@Home
-Scenario: Validate verifying navigation to trademe Jobs
-	Given when i have navigated to trademe Home Page
-	When [action]
-	Then [outcome]
 

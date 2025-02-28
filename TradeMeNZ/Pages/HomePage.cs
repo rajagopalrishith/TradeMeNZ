@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TradeMeNZ.Framework;
 
 namespace TradeMeNZ.Pages
 {
@@ -21,11 +20,14 @@ namespace TradeMeNZ.Pages
 
         //Login Page Fields
 
-        private readonly By loginusernamefield = By.XPath("//input[contains(@name,'login')]");
+        private readonly By TradeMeLogo = By.XPath("//img[@title='Trade Me - Life lives here']");
 
-        private readonly By loginpasswordfield = By.XPath("//input[contains(@name,'password')]");
 
-       
+        public bool TrademeLogoVisible()
+        {
+            return IsElementDisplayed(TradeMeLogo);
+
+        }
 
 
         //Login Page Methods
@@ -53,7 +55,7 @@ namespace TradeMeNZ.Pages
 
         public void NavigatetoTradeMe_Home()
         {
-            Driver.Navigate().GoToUrl("https://buggy.justtestit.org/");
+            Driver.Navigate().GoToUrl("https://www.tmsandbox.co.nz/a/");
         }
 
 

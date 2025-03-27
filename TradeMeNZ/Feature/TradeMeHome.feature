@@ -35,6 +35,7 @@ Scenario: Validate search page showing while clicking on search button with empt
 	Then testing git working
 	Then testing again git
 	Then testing git again and again
+	Then test and test
 
 
 

@@ -32,7 +32,7 @@ Scenario: Validate search page showing while clicking on search button with empt
 	Then I click on Jobs tab
 	Then click on Jobs Search Button
 	Then Verify page displays the jobs
-
+	Then testing git working
 
 
 

@@ -33,6 +33,7 @@ Scenario: Validate search page showing while clicking on search button with empt
 	Then click on Jobs Search Button
 	Then Verify page displays the jobs
 	Then testing git working
+	Then testing again git
 
 
 
